@@ -3,6 +3,7 @@ import { Divider, Flex, FlexItem, Title } from '@patternfly/react-core';
 
 import DeploytimeMessages from './DeploytimeMessages';
 import RuntimeMessages from './RuntimeMessages';
+import BuildtimeMessages from './BuildtimeMessages';
 import { ProcessViolation, LifecycleStage, Violation } from '../types/violationTypes';
 
 type ViolationDetailsProps = {
@@ -18,6 +19,7 @@ function ViolationDetails({
 }: ViolationDetailsProps): ReactElement {
     const showRuntimeMessages = processViolation?.processes?.length || lifecycleStage === 'RUNTIME';
     const showDeploytimeMessages = lifecycleStage === 'DEPLOY';
+    const showBuildtimeMessages = lifecycleStage === 'BUILD';
     return (
         <Flex>
             <Flex direction={{ default: 'column' }} flex={{ default: 'flex_1' }}>
@@ -38,6 +40,11 @@ function ViolationDetails({
                 {showDeploytimeMessages && (
                     <FlexItem>
                         <DeploytimeMessages violations={violations} />
+                    </FlexItem>
+                )}
+                {showBuildtimeMessages && (
+                    <FlexItem>
+                        <BuildtimeMessages violations={violations} />
                     </FlexItem>
                 )}
             </Flex>
